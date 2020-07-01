@@ -1,0 +1,31 @@
+# 网站名字 
+site_name: 蓝田的笔记
+
+# 主题 
+theme:
+    name: material
+
+# 代码高亮
+markdown_extensions: 
+    - pymdownx.tabbed
+    - pymdownx.superfences
+    - codehilite: 
+        linenums: true
+    - toc:
+        permalink: "#"
+
+# 插件配置
+plugins:
+    - search:
+        prebuild_index: true
+        lang:
+            - en
+            - de
+            - ru
+            - ja
+    - git-revision-date-localized:
+        type: iso_datetime       
+    - awesome-pages:
+        filename: .pages.yml
+        collapse_single_pages: true
+        strict: false
