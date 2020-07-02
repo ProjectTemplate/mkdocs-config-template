@@ -1,36 +1,43 @@
-# 网站名字 
-site_name: 蓝田的笔记
+# mkdocs serve IP和端口
+dev_addr: 0.0.0.0:8000
+
+# 网站名字
+site_name: 蓝田
+site_url: http://blog.sunfeilong.com
+repo_url: https://github.com/LanSeTianYe/Notes
+site_description: 蓝田的笔记
+site_author: sunfeilong
 
 # 主题 
 theme:
-    name: material
+  name: material
 
 # 代码高亮
 markdown_extensions:
-    - pymdownx.tabbed
-    - pymdownx.superfences
-    - codehilite:
-        linenums: true
-    - toc:
-        permalink: "#"
+  - pymdownx.tabbed
+  - pymdownx.superfences
+  - codehilite:
+      linenums: true
+  - toc:
+      permalink: "#"
 
 # 插件配置
 plugins:
-    - search:
-        # build 的时候构建索引
-        prebuild_index: true
-        # 支持的语言
-        lang:
-            - en
-            - de
-            - ru
-            - ja
-    # 修订日期插件(要求)
-    - git-revision-date-localized:
-        # 日期格式 2020-07-02 15:15:15
-        type: iso_datetime
-    # 控制每个目录展示
-    - awesome-pages:
-        filename: .pages.yml
-        collapse_single_pages: false
-        strict: false
+  - search:
+      # build 的时候构建索引
+      prebuild_index: true
+      # 支持的语言
+      lang:
+        - en
+        - de
+        - ru
+        - ja
+  # 修订日期插件(要求)
+  - git-revision-date-localized:
+      # 日期格式 2020-07-02 15:15:15
+      type: iso_datetime
+  # 控制每个目录展示
+  - awesome-pages:
+      filename: .pages.yml
+      collapse_single_pages: false
+      strict: false
