@@ -6,162 +6,32 @@
 2. [主题](https://jamstackthemes.dev/ssg/mkdocs/)
 3. [Typora](https://www.typora.io/)
 
-## MkDoc 
+# 项目
+## 项目简介
+mkdocs 模板项目，使用 `mkdocs new` 初始化项目之后对修改了一些配置信息，方便配置使用
 
-### 简介   
+mkdocs 安装和插件安装可参考 `Mkdocs` 章节内容。
 
-MkDocs 是一个基于 MarkDown 构建文档的工具。可以把 MarkDown 文档转换为静态网页，方便查看。配置简单，支持不同的主题。
+模板效果可参考:  [蓝田的笔记](http://note.sunfeilong.com/)
 
-### 安装及使用  
+配置修改的点：
 
-0. 安装 
+* 主题：使用 `material` 主题。
 
-     ```shell
-     pip install mkdocs==1.1.2
-     ```
+* 文件构建日期。（基于 git 提交记录，因此要求 `docs` 目录里面的内容是一个 `git项目` ）。
 
-1. 创建项目
+* 代码高亮、代码行数，高亮语法如下,：
 
-    ```shell
-    mkdocs new project_name 
-    ```
-
-2. 启动服务(进入项目目录)
-
-    ```shell
-    mkdocs serve -a 0.0.0.0:8000
+    ```go
+    func hello(){
+        fmt.Println("Hello MkDocs")
+    }
     ```
     
-3. 构建项目成静态文件 
+* 搜索。
 
-    ```shell
-    mkdocs build
-    # 删除已经没有的文件 
-    mkdocs build --clean
-    ```
+* 目录显示内容精确控制。
 
-4. 帮助信息 
+## 怎么使用
 
-    ```shell
-    mkdocs -help
-    mkdocs command --help
-    ```
-
-### MkDocs 配置   
-
-1. 配置模板 
-
-    ```yml
-    # 网站名字
-    site_name: 蓝田的笔记
-
-    # 主题
-    theme:
-        name: material
-
-    # 代码高亮
-    markdown_extensions:
-        - codehilite:
-            linenums: true
-        - toc:
-            permalink: true
-
-    # 插件配置
-    plugins:
-        - search:
-            prebuild_index: true
-            lang:
-                - en
-                - de
-                - ru
-                - ja
-        - git-revision-date-localized:
-            type: iso_datetime
-        - awesome-pages:
-            filename: .pages.yml
-            collapse_single_pages: true
-            strict: false
-    ```
-    
-### 主题 
-
-主题配置,在 `mkdocs.yml` 文件中加入下面内容。
-
-```yml
-theme:
-    name: material
-```
-
-#### [mkdocs-material](https://github.com/squidfunk/mkdocs-material)
-
-1. 安装: 
-
-    ```shell
-    pip install mkdocs-material
-    ```
-    
-3. 配置:  
-
-    ```shell
-    theme:
-        name: material
-    ```
-    
-3. 预览: [Material for MkDocs](https://squidfunk.github.io/mkdocs-material/)
-
-##### Material 插件
-
-1. [修订日期](https://squidfunk.github.io/mkdocs-material/plugins/revision-date/): 基于 git 提交日志生成修订日期。
-
-    * 安装   
-    
-        ```shell
-        pip install mkdocs-git-revision-date-localized-plugin
-        ```
-        
-     *  配置 
-     
-        ```yml
-        plugins:
-            - search # necessary for search to work
-            - git-revision-date-localized
-        ```
-    
-2. [目录控制](https://squidfunk.github.io/mkdocs-material/plugins/awesome-pages/): 控制目录标题，目录文章的顺序，目录是否展示等。
-
-    * 安装 
-    
-        ```shell
-        pip install mkdocs-awesome-pages-plugin	
-        ```
-       
-    * 配置
-    
-        ```yml
-        plugins:
-        - search # necessary for search to work
-        - awesome-pages:
-            filename: .pages.yml        # 指定配置文件名，默认文件名是 .pages
-            collapse_single_pages: true # 当目录只有一个文件时是否收缩目录
-            strict: false               # 当 arrange 配置的文件不存在是是否报错
-        ````
-
-    * 目录配置模板
-    
-        ``` yaml
-        # 目录显示的标题
-        title: Lua 使用
-
-        # 目录顺序
-        arrange:
-            - Lua 协程.md
-            - ... # 其余的文件
-            - Lua 基础语法.md
-            - Lua 常用函数库.md
-
-        # 是否隐藏
-        hide: false
-
-        # 当目录只有一个文件的时候收缩目录
-        collapse: true
-        ```
+修改 [build.sh](./build.sh) 脚本中的 `git_repository` 变量内容，然后执行 `build.sh` 脚本,脚本执行结束之后会在当前目录生成 `site` 文件夹，里面是构建好的静态网站,把该目录发布到服务器(nginx,tomcat等)即可访问。
