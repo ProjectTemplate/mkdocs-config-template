@@ -13,6 +13,8 @@ cd docs && git pull
 echo "pull docs end ..."
 cd .. && mkdocs build
 
+return 0
+
 
 
 
