@@ -7,4 +7,4 @@ port=34251
 # 校验key
 auth_key="72e0013883cbc8333575c250bc0d14cd"
 
-nohup python ./server.py ${host} ${port} > rebuild.log &
+nohup python ./server.py ${host} ${port} ${auth_key} > rebuild.log &
