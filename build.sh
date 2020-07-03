@@ -1,8 +1,10 @@
 #!/usr/bin/bash
 
+git_repository="https://github.com/LanSeTianYe/Notes.git"
+
 if [[ ! -d "docs" ]];then
     echo "docs not exists, clone project start ..."
-    git clone https://github.com/LanSeTianYe/Notes.git docs
+    git clone ${git_repository} docs
     echo "docs not exists, clone project end ..."
 fi
 
