@@ -1,6 +1,7 @@
 import json
 import os
 import sys
+import threading
 import time
 from http.server import BaseHTTPRequestHandler, HTTPServer
 from threading import Lock
@@ -18,25 +19,26 @@ class Server(BaseHTTPRequestHandler):
         print(time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()) + "    access path: " + self.path)
         if auth_key in self.path:
             print(time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()) + "    auth success: " + self.path)
-            if lock.acquire(blocking=False):
-                try:
-                    self.wfile.write(json.dumps('run rebuild').encode())
-                    rebuild()
-                finally:
-                    lock.release()
-            else:
-                self.wfile.write(json.dumps('rebuild is running skip').encode())
-                print(time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()) + "rebuild is running skip")
+            t = threading.Thread(target=rebuild(server=self))
+            t.start()
         else:
             self.wfile.write(json.dumps('auth failed').encode())
             print(time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()) + "    auth failed: " + self.path)
 
 
-def rebuild():
-    print(time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()) + "    rebuild start ...")
-    result = os.popen("sh build.sh")
-    print(time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()) + "    run rebuild result: " + result.read())
-    print(time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()) + "    rebuild end ...")
+def rebuild(server):
+    if lock.acquire(blocking=False):
+        try:
+            server.wfile.write(json.dumps('run rebuild').encode())
+            print(time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()) + "    rebuild start ...")
+            result = os.popen("sh build.sh")
+            print(time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()) + "    run rebuild result: " + result.read())
+            print(time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()) + "    rebuild end ...")
+        finally:
+            lock.release()
+    else:
+        server.wfile.write(json.dumps('rebuild is running skip').encode())
+        print(time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()) + "rebuild is running skip")
 
 
 if __name__ == '__main__':
