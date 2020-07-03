@@ -1,17 +1,35 @@
+import json
 import os
 import sys
 import time
 from http.server import BaseHTTPRequestHandler, HTTPServer
+from threading import Lock
 
 auth_key = ""
+lock = Lock()
 
 
 class Server(BaseHTTPRequestHandler):
 
     def do_GET(self):
-        print(time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()) + self.path)
+        self.send_response(200)
+        self.send_header('Content-type', 'application/json')
+        self.end_headers()
+        print(time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()) + "    access path: " + self.path)
         if auth_key in self.path:
-            rebuild()
+            print(time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()) + "    auth success: " + self.path)
+            if lock.acquire(blocking=False):
+                try:
+                    self.wfile.write(json.dumps('run rebuild').encode())
+                    rebuild()
+                finally:
+                    lock.release()
+            else:
+                self.wfile.write(json.dumps('rebuild is running skip').encode())
+                print(time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()) + "rebuild is running skip")
+        else:
+            self.wfile.write(json.dumps('auth failed').encode())
+            print(time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()) + "    auth failed: " + self.path)
 
 
 def rebuild():
