@@ -50,3 +50,20 @@ mkdocs 安装和插件安装可参考 [软件安装](./软件安装.md) 章节�
 
 请求示例: `http://127.0.0.1:34251?auth_key=72e0013883cbc8333575c250bc0d14cd`
 
+### 参考 
+使用 nginx 的时可以把对应的请求路径映射到该接口，配置如下:
+
+```nginx
+server {
+     listen       80;
+     server_name  note.sunfeilong.com;
+     
+     location / {
+         root /home/.../site/;
+         index index.html;
+     }
+
+     location /rebuild {
+         proxy_pass   http://127.0.0.1:34251;
+     }
+```
