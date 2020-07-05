@@ -11,6 +11,10 @@ lock = threading.Lock()
 class Server(BaseHTTPRequestHandler):
 
     def do_GET(self):
+        self.response()
+    def do_POST(self):
+        self.response()
+    def response(self):
         self.send_response(200)
         self.end_headers()
         print(time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()) + "    access path: " + self.path)
