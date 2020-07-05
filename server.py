@@ -1,4 +1,3 @@
-import json
 import os
 import sys
 import threading
@@ -13,16 +12,15 @@ class Server(BaseHTTPRequestHandler):
 
     def do_GET(self):
         self.send_response(200)
-        self.send_header('Content-type', 'application/json')
         self.end_headers()
         print(time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()) + "    access path: " + self.path)
         if auth_key in self.path:
             print(time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()) + "    auth success: " + self.path)
             t = threading.Thread(target=rebuild)
             t.start()
-            self.wfile.write(json.dumps('run rebuild').encode())
+            self.wfile.write(b'run rebuild')
         else:
-            self.wfile.write(json.dumps('auth failed').encode())
+            self.wfile.write(b'auth failed')
             print(time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()) + "    auth failed: " + self.path)
 
 
