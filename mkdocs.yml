@@ -8,6 +8,9 @@ repo_url: https://github.com/LanSeTianYe/Notes
 site_description: 蓝田的笔记
 site_author: sunfeilong
 
+# 样式
+extra_css: [extra.css]
+
 # 主题 
 theme:
   name: material
