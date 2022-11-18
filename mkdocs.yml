@@ -3,17 +3,25 @@ dev_addr: 0.0.0.0:8000
 
 # 网站名字
 site_name: 蓝田
-site_url: http://blog.sunfeilong.com
+site_url: https://note.sunfeilong.com
 repo_url: https://github.com/LanSeTianYe/Notes
+edit_uri: edit/master/
 site_description: 蓝田的笔记
 site_author: sunfeilong
 
 # 样式
-extra_css: [extra.css]
+# extra_css: [extra.css]
+
+# gogole analysis
+extra:
+  analytics:
+    provider: google
+    property: G-V60Y6RWM7B
 
 # 主题 
 theme:
   name: material
+#  custom_dir: overrides
 
 # 代码高亮
 markdown_extensions:
@@ -39,6 +47,7 @@ plugins:
   - git-revision-date-localized:
       # 日期格式 2020-07-02 15:15:15
       type: iso_datetime
+      time_zone: Asia/Shanghai
   # 控制每个目录展示
   - awesome-pages:
       filename: .pages.yml

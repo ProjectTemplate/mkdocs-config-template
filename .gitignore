@@ -3,3 +3,4 @@ docs/
 site/
 venv/
 *.log
+nohup.out
