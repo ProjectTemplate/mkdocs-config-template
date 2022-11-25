@@ -43,7 +43,7 @@ theme:
     repo: fontawesome/brands/github
   features:
     - header.autohide
-  language: zh
+  # language: zh
   name: material
   palette:
     # primary: cyan
@@ -88,7 +88,8 @@ plugins:
   # 修订日期插件(要求)
   - git-revision-date-localized:
       # 日期格式 2020-07-02 15:15:15
-      type: iso_datetime
+      # date, datetime, iso_date, iso_datetime and timeago
+      type: timeago
       # time_zone: Asia/Shanghai
       # enable_creation_date: true
       # fallback_to_build_date: true
