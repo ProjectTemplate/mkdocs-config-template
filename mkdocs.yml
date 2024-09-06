@@ -43,6 +43,7 @@ theme:
     repo: fontawesome/brands/github
   features:
     - header.autohide
+    - content.action.edit
   # language: zh
   name: material
   palette:
