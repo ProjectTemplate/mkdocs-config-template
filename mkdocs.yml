@@ -11,7 +11,8 @@ site_description: 蓝田的笔记
 site_author: sunfeilong
 
 # 样式
-# extra_css: [extra.css]
+extra_css: 
+  - stylesheets/extra.css
 
 
 copyright: Copyright  2020 - 2999 By 「蓝田」
